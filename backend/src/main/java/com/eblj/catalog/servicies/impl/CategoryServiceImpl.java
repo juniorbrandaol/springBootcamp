@@ -38,6 +38,15 @@ public class CategoryServiceImpl implements CategoryService {
 	   Category entity = obj.orElseThrow(()-> new EntitiyNotFoundException("Categoria não encontrada"));
 	   return new CategoryDTO(entity);
 	}
+
+	@Override
+	@Transactional
+	public CategoryDTO save(CategoryDTO categoryDto) {
+		Category entity = new Category();
+		entity.setName(categoryDto.getNome());
+	    entity= repository.save(entity);
+	    return new CategoryDTO(entity);
+	}
 	
 	  
 }
