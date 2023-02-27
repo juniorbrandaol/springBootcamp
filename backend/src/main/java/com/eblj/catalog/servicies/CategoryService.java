@@ -7,5 +7,6 @@ import com.eblj.catalog.DTO.CategoryDTO;
 public interface CategoryService {
 	
 	public List<CategoryDTO> findAll();
+	public CategoryDTO findById(Long id);
 
 }

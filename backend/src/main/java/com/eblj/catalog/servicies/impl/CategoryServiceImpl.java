@@ -1,10 +1,9 @@
 package com.eblj.catalog.servicies.impl;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.stream.Collector;
+import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,10 +25,20 @@ public class CategoryServiceImpl implements CategoryService {
 	public List<CategoryDTO> findAll() {
 		
 		List<Category> list = repository.findAll();
-		List<CategoryDTO> listDTO = list.stream().map( x-> new CategoryDTO(x))
+		List<CategoryDTO> listDto = list.stream().map(objCategory -> new CategoryDTO(objCategory))
 				.collect(Collectors.toList());
-		return listDTO;
+		return listDto;
 	}
-
+	
+	@Override
+	@Transactional(readOnly =true)
+	public CategoryDTO findById(Long id) {
+		
+	   Optional<Category> obj = repository.findById(id);
+	   Category entity = obj.get();
+	   return new CategoryDTO(entity);
+	   
+	}
+	
 	  
 }
