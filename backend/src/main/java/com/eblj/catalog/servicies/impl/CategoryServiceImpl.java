@@ -13,6 +13,7 @@ import com.eblj.catalog.DTO.CategoryDTO;
 import com.eblj.catalog.entities.Category;
 import com.eblj.catalog.repositories.CategoryRepository;
 import com.eblj.catalog.servicies.CategoryService;
+import com.eblj.catalog.servicies.exceptions.EntitiyNotFoundException;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -33,11 +34,9 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	@Transactional(readOnly =true)
 	public CategoryDTO findById(Long id) {
-		
 	   Optional<Category> obj = repository.findById(id);
-	   Category entity = obj.get();
+	   Category entity = obj.orElseThrow(()-> new EntitiyNotFoundException("Categoria não encontrada"));
 	   return new CategoryDTO(entity);
-	   
 	}
 	
 	  
