@@ -10,5 +10,6 @@ public interface CategoryService {
 	public CategoryDTO findById(Long id);
 	public CategoryDTO save(CategoryDTO categoryDto);
 	public CategoryDTO update(Long id,CategoryDTO categoryDto);
+	public void delete(Long id);
 
 }
