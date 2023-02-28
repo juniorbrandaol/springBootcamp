@@ -8,13 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import com.eblj.catalog.servicies.exceptions.EntitiyNotFoundException;
+import com.eblj.catalog.servicies.exceptions.ResourceNotFoundException;
 
 @RestControllerAdvice //permite que essa classe intercepte exceçoes que aconteçam nos controles(resource)
 public class ResourceExceptionHandeler {
 	
-	@ExceptionHandler(EntitiyNotFoundException.class)
-	public ResponseEntity<StandardError> entityNotFound(EntitiyNotFoundException e, HttpServletRequest request){
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request){
 		StandardError error = new StandardError();
 		error.setTimestamp(Instant.now());
 		error.setStatus(HttpStatus.NOT_FOUND.value());
