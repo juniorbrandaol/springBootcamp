@@ -6,6 +6,4 @@ import com.eblj.catalog.entities.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long>{/*JpaRepository é generico e espera um tipo quel o tipo do id*/
 	
-	
-
 }
