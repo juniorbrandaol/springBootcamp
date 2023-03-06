@@ -2,10 +2,12 @@ package com.eblj.catalog.resources.exceptions;
 
 import java.time.Instant;
 
-
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -38,5 +40,25 @@ public class ResourceExceptionHandeler {
 		error.setPath(request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ValidationError> validation(MethodArgumentNotValidException e, HttpServletRequest request){
+		ValidationError error = new ValidationError();
+		error.setTimestamp(Instant.now());
+		error.setStatus(HttpStatus.BAD_REQUEST.value());
+		error.setError("Validation exception");
+		error.setPath(request.getContextPath());
+		error.setMessage(e.getMessage());
+		error.setPath(request.getRequestURI());
+		
+		// retorna o erro específico que ocorreu na validação
+		for(FieldError fieldError : e.getBindingResult().getFieldErrors() ) {
+			error.addError(fieldError.getField(), fieldError.getDefaultMessage());
+		}
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+	
+	
 
 }
