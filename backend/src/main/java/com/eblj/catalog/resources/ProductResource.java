@@ -27,7 +27,8 @@ public class ProductResource {
 	@GetMapping
 	@ResponseStatus(value = HttpStatus.OK)
 	public  Page<ProductDTO> findAll(Pageable pageable){
-	   return service.findAllPaged(pageable);
+		Page<ProductDTO> list = service.findAllPaged(pageable);
+	     return list;
 	
 	}
 	
