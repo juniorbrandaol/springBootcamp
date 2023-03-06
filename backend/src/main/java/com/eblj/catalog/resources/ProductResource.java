@@ -1,5 +1,7 @@
 package com.eblj.catalog.resources;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,13 +41,13 @@ public class ProductResource {
 	
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public ProductDTO save(@RequestBody ProductDTO categoryDto) {
+	public ProductDTO save( @Valid @RequestBody ProductDTO categoryDto) {
 		return service.save(categoryDto);
 	}
 	
 	@PutMapping(value="/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
-	public ProductDTO update( @PathVariable Long id,@RequestBody ProductDTO catDto) {
+	public ProductDTO update( @Valid @PathVariable Long id,@RequestBody ProductDTO catDto) {
 		return service.update(id, catDto);
 	}
 	

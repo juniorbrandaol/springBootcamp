@@ -1,5 +1,7 @@
 package com.eblj.catalog.resources;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,13 +42,13 @@ public class UserResource {
 	
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public UserDTO save(@RequestBody UserInsertDTO dto) {
+	public UserDTO save( @Valid @RequestBody UserInsertDTO dto) {
 		return service.save(dto);
 	}
 	
 	@PutMapping(value="/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
-	public UserDTO update( @PathVariable Long id,@RequestBody UserDTO dto) {
+	public UserDTO update( @Valid @PathVariable Long id,@RequestBody UserDTO dto) {
 		return service.update(id, dto);
 	}
 	

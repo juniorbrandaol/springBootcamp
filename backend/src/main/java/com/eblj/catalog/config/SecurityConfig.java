@@ -14,7 +14,7 @@ public class SecurityConfig {
 	WebSecurityCustomizer webSecurityCustomizer() throws Exception {
 		return (web) -> web.ignoring().antMatchers(AUTH_WHITELIST);
 	}
-
-	private static final String[] AUTH_WHITELIST = { "/**", "/h2-console/**"};
+	
+	private static final String[] AUTH_WHITELIST = { "/**"};
 	
 }
