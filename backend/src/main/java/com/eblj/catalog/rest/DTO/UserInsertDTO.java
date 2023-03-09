@@ -1,4 +1,4 @@
-package com.eblj.catalog.DTO;
+package com.eblj.catalog.rest.DTO;
 
 public class UserInsertDTO extends UserDTO {
 

@@ -3,11 +3,11 @@ package com.eblj.catalog.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_role")
@@ -18,13 +18,13 @@ public class Role implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String Authority;
+	private String authority;
 	
 	public Role() {}
 
 	public Role(Long id, String authority) {
 		this.id = id;
-		Authority = authority;
+		authority = authority;
 	}
 
 	public Long getId() {
@@ -36,12 +36,13 @@ public class Role implements Serializable{
 	}
 
 	public String getAuthority() {
-		return Authority;
+		return authority;
 	}
 
 	public void setAuthority(String authority) {
-		Authority = authority;
+		authority = authority;
 	}
+
 
 	@Override
 	public int hashCode() {

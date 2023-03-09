@@ -1,4 +1,4 @@
-package com.eblj.catalog.resources.exceptions;
+package com.eblj.catalog.rest.resources.exceptions;
 
 import java.io.Serializable;
 

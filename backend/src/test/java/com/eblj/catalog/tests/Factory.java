@@ -2,7 +2,7 @@ package com.eblj.catalog.tests;
 
 import java.time.Instant;
 
-import com.eblj.catalog.DTO.ProductDTO;
+import com.eblj.catalog.rest.DTO.ProductDTO;
 import com.eblj.catalog.entities.Category;
 import com.eblj.catalog.entities.Product;
 

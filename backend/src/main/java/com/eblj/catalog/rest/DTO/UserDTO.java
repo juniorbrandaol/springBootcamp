@@ -1,11 +1,11 @@
-package com.eblj.catalog.DTO;
+package com.eblj.catalog.rest.DTO;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
 
 import com.eblj.catalog.entities.User;
 
@@ -17,7 +17,9 @@ public class UserDTO implements Serializable {
 	
 	@NotBlank(message = "Campo obrigatório.")
 	private String firstName;
+	
 	private String lastName;
+	
 	@Email(message = "Informe um email válido.")
 	private String email;
 	

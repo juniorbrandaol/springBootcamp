@@ -3,7 +3,7 @@ package com.eblj.catalog.servicies;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.eblj.catalog.DTO.ProductDTO;
+import com.eblj.catalog.rest.DTO.ProductDTO;
 
 public interface ProductService {
 	

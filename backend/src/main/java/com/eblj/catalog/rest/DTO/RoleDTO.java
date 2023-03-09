@@ -1,4 +1,4 @@
-package com.eblj.catalog.DTO;
+package com.eblj.catalog.rest.DTO;
 
 import java.io.Serializable;
 

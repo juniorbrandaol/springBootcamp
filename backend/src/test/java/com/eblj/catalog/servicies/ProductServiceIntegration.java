@@ -1,6 +1,6 @@
 package com.eblj.catalog.servicies;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.eblj.catalog.DTO.ProductDTO;
+import com.eblj.catalog.rest.DTO.ProductDTO;
 import com.eblj.catalog.repositories.ProductRepository;
 import com.eblj.catalog.servicies.exceptions.ResourceNotFoundException;
 

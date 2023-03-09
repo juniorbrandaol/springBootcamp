@@ -1,4 +1,4 @@
-package com.eblj.catalog.resources;
+package com.eblj.catalog.rest.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eblj.catalog.DTO.CategoryDTO;
+import com.eblj.catalog.rest.DTO.CategoryDTO;
 import com.eblj.catalog.servicies.CategoryService;
 
 @RestController

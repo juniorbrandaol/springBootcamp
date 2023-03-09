@@ -1,11 +1,11 @@
-package com.eblj.catalog.resources;
+package com.eblj.catalog.rest.resources;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import com.eblj.catalog.DTO.ProductDTO;
+import com.eblj.catalog.rest.DTO.ProductDTO;
 import com.eblj.catalog.tests.Factory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

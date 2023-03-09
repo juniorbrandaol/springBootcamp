@@ -1,4 +1,4 @@
-package com.eblj.catalog.resources;
+package com.eblj.catalog.rest.resources;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -24,7 +24,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import com.eblj.catalog.DTO.ProductDTO;
+import com.eblj.catalog.rest.DTO.ProductDTO;
 import com.eblj.catalog.servicies.ProductService;
 import com.eblj.catalog.servicies.exceptions.DataBaseException;
 import com.eblj.catalog.servicies.exceptions.ResourceNotFoundException;

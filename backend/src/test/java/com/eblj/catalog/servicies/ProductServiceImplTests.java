@@ -3,7 +3,7 @@ package com.eblj.catalog.servicies;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.eblj.catalog.DTO.ProductDTO;
+import com.eblj.catalog.rest.DTO.ProductDTO;
 import com.eblj.catalog.entities.Category;
 import com.eblj.catalog.entities.Product;
 import com.eblj.catalog.repositories.CategoryRepository;

@@ -2,7 +2,7 @@ package com.eblj.catalog.servicies.impl;
 
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -12,8 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.eblj.catalog.DTO.CategoryDTO;
-import com.eblj.catalog.DTO.ProductDTO;
+import com.eblj.catalog.rest.DTO.CategoryDTO;
+import com.eblj.catalog.rest.DTO.ProductDTO;
 import com.eblj.catalog.entities.Category;
 import com.eblj.catalog.entities.Product;
 import com.eblj.catalog.repositories.CategoryRepository;

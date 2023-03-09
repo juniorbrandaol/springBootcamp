@@ -3,7 +3,7 @@ package com.eblj.catalog.servicies;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.eblj.catalog.DTO.CategoryDTO;
+import com.eblj.catalog.rest.DTO.CategoryDTO;
 
 public interface CategoryService {
 	
