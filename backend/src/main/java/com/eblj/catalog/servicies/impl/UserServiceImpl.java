@@ -1,10 +1,8 @@
 package com.eblj.catalog.servicies.impl;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
-
+import com.eblj.catalog.entities.Users;
 import com.eblj.catalog.rest.DTO.RoleDTO;
 import com.eblj.catalog.rest.DTO.UserDTO;
 import com.eblj.catalog.rest.DTO.UserInsertDTO;
@@ -16,6 +14,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,7 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.eblj.catalog.entities.Role;
-import com.eblj.catalog.entities.User;
 import com.eblj.catalog.repositories.RoleRepository;
 import com.eblj.catalog.repositories.UserRepository;
 import com.eblj.catalog.servicies.UserService;
@@ -31,6 +29,7 @@ import com.eblj.catalog.servicies.exceptions.DataBaseException;
 import com.eblj.catalog.servicies.exceptions.ResourceNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static org.springframework.security.core.userdetails.User.builder;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -49,7 +48,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 	@Transactional
 	public UserDTO save(UserInsertDTO dto) {
-		User entity = new User();
+		Users entity = new Users();
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new UserDTO(entity);
@@ -58,15 +57,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(Pageable pageable) {
-		Page<User> list = repository.findAll(pageable);
+		Page<Users> list = repository.findAll(pageable);
 		return list.map(obj -> new UserDTO(obj));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
-		Optional<User> obj = repository.findById(id);
-		User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+		Optional<Users> obj = repository.findById(id);
+		Users entity = obj.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
 		return new UserDTO(entity);
 	}
 
@@ -74,7 +73,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Transactional
 	public UserDTO update(Long id, UserInsertDTO dto) {
 		try {
-			User entity = repository.getReferenceById(id);
+			Users entity = repository.getReferenceById(id);
 			copyDtoToEntity(dto, entity);
 			entity = repository.save(entity);
 			return new UserDTO(entity);
@@ -96,19 +95,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-		User user =  repository.findByEmail(userEmail)
+		Users user =  repository.findByEmail(userEmail)
 				.orElseThrow(()-> new UsernameNotFoundException("Usuário não encontrado na base de dados"));
-	//	Set<Role> rolesUser= user.getRoles();
-	//	Set<String> roles= new HashSet<>();
+		Set<Role> rolesUser= user.getRoles();
 
-	//	user.getRoles().forEach(x->{
-	//	   roles.add (x.getAuthority());
-//		});
-		String[] roles = new String[]{"ADMIN","OPERATOR"};
-
-
-        System.out.println(roles);
-		return org.springframework.security.core.userdetails.User
+		int size=0;
+		String[] roles = new String[rolesUser.size()];
+		for (Role x : rolesUser) {
+			roles[size] = x.getAuthority();
+			size++;
+		}
+		return User
 		  .builder()
 		  .username(user.getEmail())
 		  .password(user.getPassword())
@@ -116,9 +113,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		  .build();
 	}
 	@Override
-	public UserDetails authenticate(User user) {
-		UserDetails userDetails= loadUserByUsername(user.getEmail());
-		boolean ifPassword = encoder.matches(user.getPassword(),userDetails.getPassword());
+	public UserDetails authenticate(Users users) {
+		UserDetails userDetails= loadUserByUsername(users.getEmail());
+		boolean ifPassword = encoder.matches(users.getPassword(),userDetails.getPassword());
 		if(ifPassword){
 			return userDetails;
 		}
@@ -126,7 +123,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 
-	private void copyDtoToEntity(UserInsertDTO dto, User entity) {
+	private void copyDtoToEntity(UserInsertDTO dto, Users entity) {
 
 		String passwordCripto = encoder.encode(dto.getPassword());
 

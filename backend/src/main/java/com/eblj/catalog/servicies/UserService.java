@@ -1,7 +1,7 @@
 package com.eblj.catalog.servicies;
 
 
-import com.eblj.catalog.entities.User;
+import com.eblj.catalog.entities.Users;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,5 +18,5 @@ public interface UserService {
 	public void delete(Long id);
 	//UserDetails autenticar(CredentialDTO credenciais);
 
-	UserDetails authenticate(User user);
+	UserDetails authenticate(Users user);
 }

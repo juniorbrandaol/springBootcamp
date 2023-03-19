@@ -1,5 +1,8 @@
 package com.eblj.catalog.servicies.impl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -7,6 +10,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,16 +32,19 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository repository;
-	
 	@Autowired
 	private CategoryRepository categoryRepository;
 
 	@Override
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAllPaged(Pageable pageable) {
-		Page<Product> list = repository.findAll(pageable);
+	public Page<ProductDTO> findAllPaged( Long categoryId,String name,Pageable pageable) {
+		List<Category> categories = (categoryId==0) ? null : Arrays.asList(categoryRepository.getReferenceById(categoryId));
+		//JPQL
+		Page<Product> list = repository.findProducts(categories,name,pageable);
+		//SQL NATIVE
+		//Page<Product> list = repository.findProductsSQL(category.getId(),pageable);
 		return list.map(objProduct -> new ProductDTO(objProduct));
-		
+
 	}
 
 	@Override
@@ -72,7 +79,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void delete(Long id) {	
+	public void delete(Long id) {
 		try {
 			  repository.deleteById(id);
 			}

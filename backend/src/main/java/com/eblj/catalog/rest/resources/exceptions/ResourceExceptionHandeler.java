@@ -2,6 +2,7 @@ package com.eblj.catalog.rest.resources.exceptions;
 
 import java.time.Instant;
 
+import com.eblj.catalog.servicies.exceptions.TokenInvalidException;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
@@ -58,7 +59,6 @@ public class ResourceExceptionHandeler {
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
-	
-	
+
 
 }

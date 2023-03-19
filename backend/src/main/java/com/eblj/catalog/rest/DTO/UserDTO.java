@@ -7,7 +7,7 @@ import java.util.Set;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Email;
 
-import com.eblj.catalog.entities.User;
+import com.eblj.catalog.entities.Users;
 
 public class UserDTO implements Serializable {
 	
@@ -34,7 +34,7 @@ public class UserDTO implements Serializable {
 		this.email = email;
 	}
 	
-	public UserDTO(User user) {
+	public UserDTO(Users user) {
 		id = user.getId();
 		firstName = user.getFirstName();
 		lastName = user.getLastName();

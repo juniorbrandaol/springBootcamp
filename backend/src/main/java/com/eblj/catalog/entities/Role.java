@@ -60,7 +60,9 @@ public class Role implements Serializable{
 		Role other = (Role) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "{" + authority  +	"}";
+	}
 }
