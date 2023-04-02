@@ -1,4 +1,4 @@
-package com.eblj.catalog.servicies.impl;
+package com.eblj.catalog.services.impl;
 
 import java.util.Optional;
 
@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.eblj.catalog.rest.DTO.CategoryDTO;
 import com.eblj.catalog.entities.Category;
 import com.eblj.catalog.repositories.CategoryRepository;
-import com.eblj.catalog.servicies.CategoryService;
-import com.eblj.catalog.servicies.exceptions.DataBaseException;
-import com.eblj.catalog.servicies.exceptions.ResourceNotFoundException;
+import com.eblj.catalog.services.CategoryService;
+import com.eblj.catalog.services.exceptions.DataBaseException;
+import com.eblj.catalog.services.exceptions.ResourceNotFoundException;
 
 
 @Service

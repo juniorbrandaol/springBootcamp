@@ -15,12 +15,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eblj.catalog.rest.DTO.CategoryDTO;
-import com.eblj.catalog.servicies.CategoryService;
+import com.eblj.catalog.services.CategoryService;
 
 @RestController
 @RequestMapping(value="/api/categories")
 public class CategoryResource {
-	
 	@Autowired
 	private CategoryService service;
 
@@ -46,12 +45,10 @@ public class CategoryResource {
 	public CategoryDTO update( @PathVariable Long id,@RequestBody CategoryDTO catDto) {
 		return service.update(id, catDto);
 	}
-	
 	@DeleteMapping(value="/{id}")
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void delete( @PathVariable Long id) {
 		 service.delete(id);
 	}
-	
-	
+
 }

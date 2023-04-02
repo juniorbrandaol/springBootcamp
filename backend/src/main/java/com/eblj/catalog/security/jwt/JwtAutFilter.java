@@ -1,6 +1,6 @@
 package com.eblj.catalog.security.jwt;
 
-import com.eblj.catalog.servicies.impl.UserServiceImpl;
+import com.eblj.catalog.services.impl.UserServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,7 +33,6 @@ public class JwtAutFilter extends OncePerRequestFilter {
 
        if(authorization!=null && authorization.startsWith("Bearer")){
           String token = authorization.split(" ")[1];
-
           boolean isValid = jwtService.tokenValid(token);
           if(isValid){
 

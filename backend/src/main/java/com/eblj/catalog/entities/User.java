@@ -1,24 +1,14 @@
 package com.eblj.catalog.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_user")
-public class Users implements Serializable{
+public class User implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -30,7 +20,10 @@ public class Users implements Serializable{
 	@Column(unique = true)
 	private String email;
 	private String password;
-	
+	@Column(unique = true)
+	private String cpf;
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders;
 	@ManyToMany(fetch = FetchType.EAGER)// garante que sempre que for carregar o usuario, vai carregar as roles dele obrigatoriamente
 	@JoinTable(name="tb_user_role",joinColumns = 
 	             @JoinColumn(name="user_id"), inverseJoinColumns =
@@ -38,14 +31,15 @@ public class Users implements Serializable{
 	          )
 	private Set<Role> roles = new HashSet<>();
 	
-	public Users() {}
+	public User() {}
 
-	public Users(Long id, String firstName, String lastName, String email, String password) {
+	public User(Long id,String cpf, String firstName, String lastName, String email, String password) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
+		this.cpf =cpf;
 	}
 
 	public Long getId() {
@@ -92,12 +86,20 @@ public class Users implements Serializable{
 		return roles;
 	}
 
+	public String getCpf() {
+		return cpf;
+	}
 
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	public List<Order> getOrders() {
+		return orders;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -106,10 +108,17 @@ public class Users implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Users other = (Users) obj;
+		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
+	public boolean hasHole(String roleName) {
+		for (Role role : roles) {
+			if (role.getAuthority().equals(roleName)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

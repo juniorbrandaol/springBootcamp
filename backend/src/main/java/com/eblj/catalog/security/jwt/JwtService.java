@@ -1,7 +1,7 @@
 package com.eblj.catalog.security.jwt;
 
-import com.eblj.catalog.entities.Users;
-import com.eblj.catalog.servicies.exceptions.TokenInvalidException;
+import com.eblj.catalog.entities.User;
+import com.eblj.catalog.services.exceptions.TokenInvalidException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -23,7 +23,7 @@ public class JwtService {
     private String chaveAssinatura;
 
 
-    public String accessToken(Users user) {
+    public String accessToken(User user) {
 
         long expString = Long.valueOf(expiracao);
         LocalDateTime dataHoraExp = LocalDateTime.now().plusMinutes(expString);

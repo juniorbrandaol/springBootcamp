@@ -1,4 +1,4 @@
-package com.eblj.catalog.servicies;
+package com.eblj.catalog.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,4 +1,4 @@
-package com.eblj.catalog.servicies;
+package com.eblj.catalog.services;
 
 import jakarta.transaction.Transactional;
 
@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.eblj.catalog.rest.DTO.ProductDTO;
 import com.eblj.catalog.repositories.ProductRepository;
-import com.eblj.catalog.servicies.exceptions.ResourceNotFoundException;
+import com.eblj.catalog.services.exceptions.ResourceNotFoundException;
 
 @SpringBootTest // para teste de integracao
 @Transactional

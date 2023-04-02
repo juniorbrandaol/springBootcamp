@@ -1,10 +1,9 @@
 package com.eblj.catalog.rest.resources;
-import com.eblj.catalog.entities.Users;
+import com.eblj.catalog.entities.User;
 import com.eblj.catalog.rest.DTO.CredentialDTO;
 import com.eblj.catalog.rest.DTO.TokenDTO;
 import com.eblj.catalog.security.jwt.JwtService;
-import com.eblj.catalog.servicies.exceptions.SenhaInvalidaException;
-import com.eblj.catalog.servicies.exceptions.TokenInvalidException;
+import com.eblj.catalog.services.exceptions.SenhaInvalidaException;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.annotation.Validated;
 import com.eblj.catalog.rest.DTO.UserDTO;
 import com.eblj.catalog.rest.DTO.UserInsertDTO;
-import com.eblj.catalog.servicies.UserService;
+import com.eblj.catalog.services.UserService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -62,9 +61,8 @@ public class UserResource  {
 
 	@PostMapping("/auth")
 	public TokenDTO authenticate(@RequestBody CredentialDTO dto){
-
 		try{
-			Users user = new Users();
+			User user = new User();
 			user.setEmail(dto.getEmail());
 			user.setPassword(dto.getPassword());
 

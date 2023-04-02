@@ -1,4 +1,4 @@
-package com.eblj.catalog.servicies;
+package com.eblj.catalog.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,9 +25,9 @@ import com.eblj.catalog.entities.Category;
 import com.eblj.catalog.entities.Product;
 import com.eblj.catalog.repositories.CategoryRepository;
 import com.eblj.catalog.repositories.ProductRepository;
-import com.eblj.catalog.servicies.exceptions.DataBaseException;
-import com.eblj.catalog.servicies.exceptions.ResourceNotFoundException;
-import com.eblj.catalog.servicies.impl.ProductServiceImpl;
+import com.eblj.catalog.services.exceptions.DataBaseException;
+import com.eblj.catalog.services.exceptions.ResourceNotFoundException;
+import com.eblj.catalog.services.impl.ProductServiceImpl;
 import com.eblj.catalog.tests.Factory;
 
 @ExtendWith(SpringExtension.class)// teste de unidade

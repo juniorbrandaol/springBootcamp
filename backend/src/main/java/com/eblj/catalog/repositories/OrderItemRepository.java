@@ -1,8 +1,8 @@
 package com.eblj.catalog.repositories;
+
+import com.eblj.catalog.entities.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.eblj.catalog.entities.Role;
 import org.springframework.stereotype.Repository;
 @Repository
-public interface RoleRepository extends JpaRepository<Role, Long>{
-
+public interface OrderItemRepository extends JpaRepository<OrderItem,Long> {
 }

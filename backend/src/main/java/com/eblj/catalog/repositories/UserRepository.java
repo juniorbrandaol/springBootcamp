@@ -2,10 +2,11 @@ package com.eblj.catalog.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.eblj.catalog.entities.Users;
-
+import com.eblj.catalog.entities.User;
+import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<Users, Long> {
-    Optional<Users> findByEmail(String email);
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByEmail( String email);
 }

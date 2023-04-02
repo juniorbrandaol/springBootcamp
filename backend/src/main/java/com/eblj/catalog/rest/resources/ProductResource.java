@@ -3,14 +3,13 @@ package com.eblj.catalog.rest.resources;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import com.eblj.catalog.rest.DTO.ProductDTO;
-import com.eblj.catalog.servicies.ProductService;
+import com.eblj.catalog.services.ProductService;
 
 @RestController
 @RequestMapping(value="/api/products")

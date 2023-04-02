@@ -1,6 +1,5 @@
-package com.eblj.catalog.servicies.impl;
+package com.eblj.catalog.services.impl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -16,15 +15,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import com.eblj.catalog.rest.DTO.CategoryDTO;
 import com.eblj.catalog.rest.DTO.ProductDTO;
 import com.eblj.catalog.entities.Category;
 import com.eblj.catalog.entities.Product;
 import com.eblj.catalog.repositories.CategoryRepository;
 import com.eblj.catalog.repositories.ProductRepository;
-import com.eblj.catalog.servicies.ProductService;
-import com.eblj.catalog.servicies.exceptions.DataBaseException;
-import com.eblj.catalog.servicies.exceptions.ResourceNotFoundException;
+import com.eblj.catalog.services.ProductService;
+import com.eblj.catalog.services.exceptions.DataBaseException;
+import com.eblj.catalog.services.exceptions.ResourceNotFoundException;
 
 
 @Service
@@ -34,16 +34,17 @@ public class ProductServiceImpl implements ProductService {
 	private ProductRepository repository;
 	@Autowired
 	private CategoryRepository categoryRepository;
-
 	@Override
 	@Transactional(readOnly = true)
 	public Page<ProductDTO> findAllPaged( Long categoryId,String name,Pageable pageable) {
 		List<Category> categories = (categoryId==0) ? null : Arrays.asList(categoryRepository.getReferenceById(categoryId));
 		//JPQL
-		Page<Product> list = repository.findProducts(categories,name,pageable);
+		Page<Product> page = repository.findProducts(categories,name,pageable);
+		repository.findProductsWithCategories(page.getContent()); //getContente converte page para list
+
 		//SQL NATIVE
 		//Page<Product> list = repository.findProductsSQL(category.getId(),pageable);
-		return list.map(objProduct -> new ProductDTO(objProduct));
+		return page.map(objProduct -> new ProductDTO(objProduct,objProduct.getCategories()));
 
 	}
 

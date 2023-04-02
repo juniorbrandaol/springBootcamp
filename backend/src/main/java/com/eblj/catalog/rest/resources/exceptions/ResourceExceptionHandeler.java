@@ -2,7 +2,8 @@ package com.eblj.catalog.rest.resources.exceptions;
 
 import java.time.Instant;
 
-import com.eblj.catalog.servicies.exceptions.TokenInvalidException;
+import com.eblj.catalog.services.exceptions.ForbiddenException;
+import com.eblj.catalog.services.exceptions.UnauthorizedException;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
@@ -12,8 +13,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.eblj.catalog.servicies.exceptions.DataBaseException;
-import com.eblj.catalog.servicies.exceptions.ResourceNotFoundException;
+import com.eblj.catalog.services.exceptions.DataBaseException;
+import com.eblj.catalog.services.exceptions.ResourceNotFoundException;
 
 @RestControllerAdvice //permite que essa classe intercepte exceçoes que aconteçam nos controles(resource)
 public class ResourceExceptionHandeler {
@@ -58,6 +59,18 @@ public class ResourceExceptionHandeler {
 		}
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+
+	@ExceptionHandler(ForbiddenException.class)
+	public ResponseEntity<OAuthCustomError> forbidden(ForbiddenException e, HttpServletRequest request) {
+		OAuthCustomError err = new OAuthCustomError("Forbidden", e.getMessage());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
+	}
+
+	@ExceptionHandler(UnauthorizedException.class)
+	public ResponseEntity<OAuthCustomError> unauthorized(UnauthorizedException e, HttpServletRequest request) {
+		OAuthCustomError err = new OAuthCustomError("Unauthorized", e.getMessage());
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(err);
 	}
 
 

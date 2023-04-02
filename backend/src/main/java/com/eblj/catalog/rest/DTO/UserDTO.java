@@ -7,7 +7,7 @@ import java.util.Set;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Email;
 
-import com.eblj.catalog.entities.Users;
+import com.eblj.catalog.entities.User;
 
 public class UserDTO implements Serializable {
 	
@@ -19,7 +19,7 @@ public class UserDTO implements Serializable {
 	private String firstName;
 	
 	private String lastName;
-	
+	private String cpf;
 	@Email(message = "Informe um email válido.")
 	private String email;
 	
@@ -27,17 +27,19 @@ public class UserDTO implements Serializable {
 	
 	public UserDTO() {}
 
-	public UserDTO(Long id, String firstName, String lastName, String email) {
+	public UserDTO(Long id, String firstName, String lastName,String cpf, String email) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.cpf = cpf;
 		this.email = email;
 	}
 	
-	public UserDTO(Users user) {
+	public UserDTO(User user) {
 		id = user.getId();
 		firstName = user.getFirstName();
 		lastName = user.getLastName();
+		cpf  = user.getCpf();
 		email = user.getEmail();
 		user.getRoles().forEach( role -> this.rolles.add(new RoleDTO(role)));
 	}
@@ -64,6 +66,14 @@ public class UserDTO implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public String getEmail() {

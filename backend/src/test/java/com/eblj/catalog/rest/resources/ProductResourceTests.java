@@ -25,9 +25,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import com.eblj.catalog.rest.DTO.ProductDTO;
-import com.eblj.catalog.servicies.ProductService;
-import com.eblj.catalog.servicies.exceptions.DataBaseException;
-import com.eblj.catalog.servicies.exceptions.ResourceNotFoundException;
+import com.eblj.catalog.services.ProductService;
+import com.eblj.catalog.services.exceptions.DataBaseException;
+import com.eblj.catalog.services.exceptions.ResourceNotFoundException;
 import com.eblj.catalog.tests.Factory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

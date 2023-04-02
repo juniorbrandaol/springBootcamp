@@ -1,12 +1,12 @@
-package com.eblj.catalog.servicies.impl;
+package com.eblj.catalog.services.impl;
 
 import java.util.*;
 
-import com.eblj.catalog.entities.Users;
+import com.eblj.catalog.entities.User;
 import com.eblj.catalog.rest.DTO.RoleDTO;
 import com.eblj.catalog.rest.DTO.UserDTO;
 import com.eblj.catalog.rest.DTO.UserInsertDTO;
-import com.eblj.catalog.servicies.exceptions.SenhaInvalidaException;
+import com.eblj.catalog.services.exceptions.SenhaInvalidaException;
 import jakarta.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,12 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.eblj.catalog.entities.Role;
 import com.eblj.catalog.repositories.RoleRepository;
 import com.eblj.catalog.repositories.UserRepository;
-import com.eblj.catalog.servicies.UserService;
-import com.eblj.catalog.servicies.exceptions.DataBaseException;
-import com.eblj.catalog.servicies.exceptions.ResourceNotFoundException;
+import com.eblj.catalog.services.UserService;
+import com.eblj.catalog.services.exceptions.DataBaseException;
+import com.eblj.catalog.services.exceptions.ResourceNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import static org.springframework.security.core.userdetails.User.builder;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -44,11 +41,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Autowired
 	private RoleRepository roleRepository;
 
-
 	@Override
 	@Transactional
 	public UserDTO save(UserInsertDTO dto) {
-		Users entity = new Users();
+		User entity = new User();
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new UserDTO(entity);
@@ -57,15 +53,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(Pageable pageable) {
-		Page<Users> list = repository.findAll(pageable);
+		Page<User> list = repository.findAll(pageable);
 		return list.map(obj -> new UserDTO(obj));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
-		Optional<Users> obj = repository.findById(id);
-		Users entity = obj.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
+		Optional<User> obj = repository.findById(id);
+		User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
 		return new UserDTO(entity);
 	}
 
@@ -73,7 +69,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Transactional
 	public UserDTO update(Long id, UserInsertDTO dto) {
 		try {
-			Users entity = repository.getReferenceById(id);
+			User entity = repository.getReferenceById(id);
 			copyDtoToEntity(dto, entity);
 			entity = repository.save(entity);
 			return new UserDTO(entity);
@@ -95,9 +91,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-		Users user =  repository.findByEmail(userEmail)
+		User user =  repository.findByEmail(userEmail)
 				.orElseThrow(()-> new UsernameNotFoundException("Usuário não encontrado na base de dados"));
 		Set<Role> rolesUser= user.getRoles();
+
 
 		int size=0;
 		String[] roles = new String[rolesUser.size()];
@@ -105,7 +102,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			roles[size] = x.getAuthority();
 			size++;
 		}
-		return User
+		return org.springframework.security.core.userdetails.User
 		  .builder()
 		  .username(user.getEmail())
 		  .password(user.getPassword())
@@ -113,22 +110,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		  .build();
 	}
 	@Override
-	public UserDetails authenticate(Users users) {
-		UserDetails userDetails= loadUserByUsername(users.getEmail());
-		boolean ifPassword = encoder.matches(users.getPassword(),userDetails.getPassword());
+	public UserDetails authenticate(User user) {
+		UserDetails userDetails= loadUserByUsername(user.getEmail());
+		boolean ifPassword = encoder.matches(user.getPassword(),userDetails.getPassword());
+
 		if(ifPassword){
 			return userDetails;
 		}
 		throw new SenhaInvalidaException();
 	}
 
-
-	private void copyDtoToEntity(UserInsertDTO dto, Users entity) {
+	private void copyDtoToEntity(UserInsertDTO dto, User entity) {
 
 		String passwordCripto = encoder.encode(dto.getPassword());
 
 		entity.setPassword(passwordCripto);
 		entity.setFirstName(dto.getFirstName());
+		entity.setCpf(dto.getCpf());
 		entity.setLastName(dto.getLastName());
 		entity.setEmail(dto.getEmail());
 		

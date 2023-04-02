@@ -1,9 +1,7 @@
 package com.eblj.catalog.rest.DTO;
 
 import java.io.Serializable;
-
 import com.eblj.catalog.entities.Category;
-
 public class CategoryDTO implements Serializable{
 
 	

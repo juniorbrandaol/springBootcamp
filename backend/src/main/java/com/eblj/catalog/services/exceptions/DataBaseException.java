@@ -1,4 +1,4 @@
-package com.eblj.catalog.servicies.exceptions;
+package com.eblj.catalog.services.exceptions;
 
 public class DataBaseException extends RuntimeException {
 	
